@@ -22,7 +22,7 @@ const LoginPage = () => {
   const handleChange = () => {};
   return (
     <>
-      <Container fluid>
+      <Container fluid className="p-0 vh-100">
         <Navbar color="black">
           <NavbarBrand href="/">
             <div className="ps-2 pt-4 d-flex align-items-center mb-4 text-light text-light">
@@ -31,38 +31,42 @@ const LoginPage = () => {
             </div>
           </NavbarBrand>
         </Navbar>
+
         <Container
           color="black"
-          className=" mt-4"
-          style={{ width: "46rem", maxWidth: "100%" }}
+          className="mt-4"
+          style={{ width: "46rem", height: "18rem", maxWidth: "100%" }}
         >
-          <Col className="p-0 m-0 d-flex flex-column justify-content-center align-items-center bg-black ">
+          <Col className="p-0 m-0 d-flex flex-column justify-content-center align-items-center bg-black">
             <Row className="p-0 m-0 mt-5 mb-5">
               <p className="p-0 m-0 fw-bold" style={{ fontSize: "2.8rem" }}>
                 Log in to Spotify
               </p>
             </Row>
-            <Col className="mb-3 m-0 p-0">
+
+            <Col className="mb-3">
               <Row>
                 <LoginWithButton>
                   <FcGoogle size={24} className="me-5" />
-                  <span className="fw-bold">Continue With Google</span>
+                  <span>Continue with Google</span>
                 </LoginWithButton>
               </Row>
               <Row>
                 <LoginWithButton>
                   <FaFacebook size={24} className="me-5" fill="blue" />
-                  <span className="fw-bold">Continue With Facebook</span>
+                  <span>Continue with Facebook</span>
                 </LoginWithButton>
               </Row>
               <Row>
                 <LoginWithButton>
                   <FaApple size={24} className="me-5" />
-                  <span className="fw-bold">Continue With Apple</span>
+                  <span>Continue with Apple</span>
                 </LoginWithButton>
               </Row>
             </Col>
-            <hr className="mt-3 border border-secondary  col-8" />
+
+            <hr className="mt-3 border border-secondary col-8" />
+
             <Container style={{ width: "21rem", maxWidth: "100%" }}>
               <Form>
                 <FormInput

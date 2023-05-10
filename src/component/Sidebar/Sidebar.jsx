@@ -21,7 +21,7 @@ const Sidebar = () => {
               <div>
                 <Container className="d-flex flex-column">
                   <Link to="/" className="text-decoration-none text-white">
-                    <div className="fw-semibold d-flex align-items-center mb-3">
+                    <div className="fw-semibold d-flex align-items-center mb-3 text-secondary sidebar-text">
                       <MdOutlineHome size={24} className="me-3" />
                       Home
                     </div>

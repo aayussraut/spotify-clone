@@ -13,11 +13,21 @@ import {
   MdArrowBackIos,
   MdOutlineDownloadForOffline,
 } from "react-icons/md";
-import { useMatch } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
   const match = useMatch("/search/*");
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    navigate(`/search/${e.target.value}`);
+  };
+  // useEffect(() => {
+  //   setSearch("");
+  // }, []);
 
   return (
     <>
@@ -27,7 +37,7 @@ const Header = () => {
         className="bg-opacity-50 "
       >
         <Container fluid className="p-0 d-flex align-items-center">
-          <Nav className="me-auto ">
+          <Nav className="me-2 ">
             <Button
               className="rounded-circle d-flex justify-content-center align-items-center bg-black me-2 border-0"
               style={{ width: "40px", height: "40px" }}
@@ -42,16 +52,21 @@ const Header = () => {
             </Button>
           </Nav>
           {match && (
-            <Nav className="me-auto">
-              <InputGroup className="">
-                <InputGroupText addonType="append">
-                  <FaSearch />
+            <Nav className="me-auto   rounded-5 w-25 bg-secondary bg-opacity-25 py-2">
+              <InputGroup className="rounded">
+                <InputGroupText
+                  addonType="append"
+                  className="bg-transparent border-0 text-white p-0 ps-3"
+                >
+                  <FaSearch size={18} />
                 </InputGroupText>
                 <Input
                   autoFocus
                   type="search"
-                  placeholder="Search"
-                  className="border-0"
+                  value={search}
+                  onChange={handleSearch}
+                  placeholder="What do you want to listen to?"
+                  className="bg-transparent border-0 shadow-none text-white"
                 />
               </InputGroup>
             </Nav>
