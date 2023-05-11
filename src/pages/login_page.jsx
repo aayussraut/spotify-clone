@@ -6,6 +6,7 @@ import {
   Form,
   FormFeedback,
   FormGroup,
+  FormText,
   Input,
   Label,
   Navbar,
@@ -15,37 +16,85 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { FaApple, FaFacebook } from "react-icons/fa";
 import React, { useState } from "react";
-import LoginWithButton from "../component/Button/Button";
-import { Link } from "react-router-dom";
+import { LoginWithButton } from "../component/Button/Button";
+import { Link, useNavigate } from "react-router-dom";
 import FormInput from "../component/Form/FormInput";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
+import { userAtom } from "../recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { setSession } from "../utils/auth";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const [formErrors, setFormErrors] = useState({});
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  const [user, setUser] = useRecoilState(userAtom);
+
+  const validateForm = () => {
+    const errors = {};
+
+    if (!formData.email) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Invalid email address";
+    }
+
+    if (!formData.password) {
+      errors.password = "Password is required";
+    }
+
+    return errors;
+  };
+
   const handleChange = (e) => {
+    e.preventDefault();
+    setError(null);
+    setFormErrors({});
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleLogin = () => {
-    console.log(formData);
-    console.log("Login");
-    signInWithEmailAndPassword(auth, formData.email, formData.password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(error);
-        console.log(errorCode);
-      });
+    const errors = validateForm();
+    if (Object.keys(errors).length === 0) {
+      setUser((prev) => ({ ...prev, isLoading: true }));
+
+      signInWithEmailAndPassword(auth, formData.email, formData.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+          setUser((prev) => ({
+            ...prev,
+            user: {
+              email: user.email,
+              uid: user.uid,
+              username: formData.username,
+            },
+            isLoading: false,
+          }));
+          setSession({
+            email: user.email,
+            uid: user.uid,
+          });
+          navigate("/");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(error);
+          console.log(errorCode);
+          setError(errorCode);
+          setUser((prev) => ({ ...prev, isLoading: false }));
+        });
+    } else {
+      setFormErrors(errors);
+    }
   };
 
   return (
@@ -96,6 +145,11 @@ const LoginPage = () => {
             </Col>
 
             <hr className="mt-3 border border-secondary col-8" />
+            {error && (
+              <FormText className="border border-1 border-danger">
+                <span className="text-danger fs-3 p-2">{error}</span>
+              </FormText>
+            )}
 
             <Container style={{ width: "21rem", maxWidth: "100%" }}>
               <Form>
@@ -106,6 +160,7 @@ const LoginPage = () => {
                   placeholder="Email or username"
                   value={formData.email}
                   onChange={handleChange}
+                  formError={formErrors.email}
                 />
 
                 <FormInput
@@ -115,6 +170,7 @@ const LoginPage = () => {
                   placeholder="Password"
                   value={formData.password}
                   onChange={handleChange}
+                  formError={formErrors.password}
                 />
 
                 <FormGroup className="mt-3">

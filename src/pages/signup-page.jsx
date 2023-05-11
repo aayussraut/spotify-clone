@@ -5,6 +5,7 @@ import {
   Container,
   Form,
   FormGroup,
+  FormText,
   Input,
   Label,
   Row,
@@ -12,41 +13,95 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import React, { useState } from "react";
-import LoginWithButton from "../component/Button/Button";
-import { Link } from "react-router-dom";
+import { LoginWithButton } from "../component/Button/Button";
+import { Link, useNavigate } from "react-router-dom";
 import FormInput from "../component/Form/FormInput";
 import FormRadio from "../component/Form/Radio";
-
 import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { userAtom } from "../recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { setSession } from "../utils/auth";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     username: "",
     gender: "",
   });
+  const [formErrors, setFormErrors] = useState({});
+  const [error, setError] = useState(null);
+  const [user, setUser] = useRecoilState(userAtom);
+
+  const validateForm = () => {
+    const errors = {};
+
+    if (!formData.email) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Invalid email address";
+    }
+
+    if (!formData.password) {
+      errors.password = "Password is required";
+    } else if (formData.password.length < 8) {
+      errors.password = "Password must be at least 8 characters long";
+    }
+
+    if (!formData.username) {
+      errors.username = "Username is required";
+    }
+
+    return errors;
+  };
 
   const handleChange = (e) => {
+    e.preventDefault();
+    setError(null);
+    setFormErrors({});
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSignUp = () => {
-    console.log(formData);
-    console.log("Sign Up");
-    // createUserWithEmailAndPassword(auth, formData.email, formData.password)
-    //   .then((userCredential) => {
-    //     const user = userCredential.user;
-    //     console.log(user);
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     console.log(error);
-    //   });
+    const errors = validateForm();
+    setUser((prev) => ({ ...prev, isLoading: true }));
+
+    if (Object.keys(errors).length === 0) {
+      createUserWithEmailAndPassword(auth, formData.email, formData.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+          setUser((prev) => ({
+            ...prev,
+            user: {
+              email: user.email,
+              uid: user.uid,
+              username: formData.username,
+            },
+            isLoading: false,
+          }));
+          setSession({
+            email: user.email,
+            uid: user.uid,
+          });
+          navigate("/");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(error);
+          setError(errorCode);
+          setUser((prev) => ({ ...prev, isLoading: false }));
+        });
+    } else {
+      setFormErrors(errors);
+    }
   };
+
   return (
     <>
       <Container>
@@ -92,6 +147,27 @@ const SignUpPage = () => {
               Sign up for free to start listening.
             </p>
           </Row>
+          <Row>
+            {error && (
+              // <div
+              //   className="alert alert-danger alert-dismissible fade show"
+              //   role="alert"
+              // >
+              //   <span>{error}</span>
+              //   <button
+              //     type="button"
+              //     className="close"
+              //     data-dismiss="alert"
+              //     aria-label="Close"
+              //   >
+              //     <span aria-hidden="true">&times;</span>
+              //   </button>
+              // </div>
+              <FormText className="border border-1 border-danger">
+                <span className="text-danger fs-3 p-2">{error}</span>
+              </FormText>
+            )}
+          </Row>
 
           <Container style={{ width: "29rem", maxWidth: "100%" }}>
             <Form>
@@ -102,6 +178,7 @@ const SignUpPage = () => {
                 label="What's your email?"
                 value={formData.email}
                 onChange={handleChange}
+                formError={formErrors.email}
               />
               <FormInput
                 name="password"
@@ -110,6 +187,7 @@ const SignUpPage = () => {
                 label="Create a password"
                 value={formData.password}
                 onChange={handleChange}
+                formError={formErrors.password}
               />
               <FormInput
                 name="username"
@@ -118,6 +196,7 @@ const SignUpPage = () => {
                 label="What's should we call you?"
                 value={formData.username}
                 onChange={handleChange}
+                formError={formErrors.username}
               />
 
               <FormGroup>
@@ -151,7 +230,9 @@ const SignUpPage = () => {
                     onClick={handleSignUp}
                     className="rounded-5 mt-5 mb-3 btn-grow text-black py-3 px-5"
                   >
-                    <span className="fw-semibold">Sign Up</span>
+                    <span className="fw-semibold">
+                      {user.isLoading ? "Loading..." : "Sign up"}
+                    </span>
                   </Button>
                 </div>
                 <FormGroup check>
