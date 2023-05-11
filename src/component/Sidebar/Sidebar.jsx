@@ -5,9 +5,11 @@ import { VscLibrary } from "react-icons/vsc";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
 import { BsGlobe } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
+  let location = useLocation();
+
   return (
     <>
       <div className="vh-100 bg-black text-center ps-3">
@@ -21,13 +23,21 @@ const Sidebar = () => {
               <div>
                 <Container className="d-flex flex-column">
                   <Link to="/" className="text-decoration-none text-white">
-                    <div className="fw-semibold d-flex align-items-center mb-3 text-secondary sidebar-text">
+                    <div
+                      className={`fw-semibold d-flex align-items-center mb-3 text-secondary sidebar-text ${
+                        location.pathname == "/" && "text-white"
+                      }`}
+                    >
                       <MdOutlineHome size={24} className="me-3" />
                       Home
                     </div>
                   </Link>
                   <Link to="/search" className="text-decoration-none">
-                    <div className="fw-semibold d-flex align-items-center mb-3 text-secondary sidebar-text ">
+                    <div
+                      className={`fw-semibold d-flex align-items-center mb-3 text-secondary sidebar-text ${
+                        location.pathname == "/search" && "text-white"
+                      }`}
+                    >
                       <MdOutlineSearch size={24} className="me-3" />
                       Search
                     </div>
