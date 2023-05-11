@@ -1,6 +1,6 @@
 import { FormGroup, Input, Label } from "reactstrap";
 
-const FormRadio = ({ value }) => {
+const FormRadio = ({ value, checked, handleChange }) => {
   const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
   return (
     <>
@@ -11,6 +11,8 @@ const FormRadio = ({ value }) => {
           type="radio"
           value={value}
           className="text-white bg-black border-secondary "
+          checked={checked}
+          onChange={handleChange}
         />
         <Label check for="male">
           {capitalizedValue}

@@ -13,7 +13,7 @@ import {
   MdArrowBackIos,
   MdOutlineDownloadForOffline,
 } from "react-icons/md";
-import { useMatch, useNavigate } from "react-router-dom";
+import { useLocation, useMatch, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
@@ -37,7 +37,7 @@ const Header = () => {
         className="bg-opacity-50 "
       >
         <Container fluid className="p-0 d-flex align-items-center">
-          <Nav className="me-2 ">
+          <Nav className="me-2">
             <Button
               className="rounded-circle d-flex justify-content-center align-items-center bg-black me-2 border-0"
               style={{ width: "40px", height: "40px" }}
@@ -52,12 +52,9 @@ const Header = () => {
             </Button>
           </Nav>
           {match && (
-            <Nav className="me-auto   rounded-5 w-25 bg-secondary bg-opacity-25 py-2">
-              <InputGroup className="rounded">
-                <InputGroupText
-                  addonType="append"
-                  className="bg-transparent border-0 text-white p-0 ps-3"
-                >
+            <Nav className="me-auto   rounded-5 w-25 bg-secondary bg-opacity-25 py-2 input-focus">
+              <InputGroup className="rounded input-group">
+                <InputGroupText className="bg-transparent border-0 text-white p-0 ps-3">
                   <FaSearch size={18} />
                 </InputGroupText>
                 <Input
@@ -71,7 +68,7 @@ const Header = () => {
               </InputGroup>
             </Nav>
           )}
-          <Nav className="">
+          <Nav className="ms-auto">
             <Button className=" fw-semibold rounded-5 m-2 text-black bg-white border-0 btn-hover me-2">
               Upgrade
             </Button>

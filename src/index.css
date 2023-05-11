@@ -64,6 +64,10 @@ body {
 .social-media-button:hover {
   background-color: rgb(114, 114, 114) !important;
 }
+
+.input-focus:focus-within {
+  border: 2px solid white !important;
+}
 /* 
 h1 {
   font-size: 3.2em;
