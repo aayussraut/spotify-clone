@@ -17,6 +17,9 @@ import { Link } from "react-router-dom";
 import FormInput from "../component/Form/FormInput";
 import FormRadio from "../component/Form/Radio";
 
+import { auth } from "../firebase/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -31,7 +34,18 @@ const SignUpPage = () => {
   };
 
   const handleSignUp = () => {
+    console.log(formData);
     console.log("Sign Up");
+    // createUserWithEmailAndPassword(auth, formData.email, formData.password)
+    //   .then((userCredential) => {
+    //     const user = userCredential.user;
+    //     console.log(user);
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //     console.log(error);
+    //   });
   };
   return (
     <>
@@ -110,10 +124,26 @@ const SignUpPage = () => {
                 <Label className="fw-semibold mt-3">What's your gender?</Label>
                 <br />
                 <div className="d-flex ">
-                  <FormRadio value="male" />
-                  <FormRadio value="female" />
-                  <FormRadio value="non-binary" />
-                  <FormRadio value="other" />
+                  <FormRadio
+                    value="male"
+                    checked={formData.gender === "male"}
+                    handleChange={handleChange}
+                  />
+                  <FormRadio
+                    value="female"
+                    checked={formData.gender === "female"}
+                    handleChange={handleChange}
+                  />
+                  <FormRadio
+                    value="non-binary"
+                    checked={formData.gender === "non-binary"}
+                    handleChange={handleChange}
+                  />
+                  <FormRadio
+                    value="other"
+                    checked={formData.gender === "other"}
+                    handleChange={handleChange}
+                  />
                 </div>
 
                 <div className="d-flex justify-content-center">
@@ -138,7 +168,7 @@ const SignUpPage = () => {
                         Spotify Terms and Conditions of Use
                       </a>
                     </span>{" "}
-                    and&nbsp;
+                    and{" "}
                     <span>
                       <a href="" style={{ color: "#1ed661 " }}>
                         Privacy Policy.

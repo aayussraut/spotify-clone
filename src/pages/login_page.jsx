@@ -14,15 +14,43 @@ import {
 } from "reactstrap";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple, FaFacebook } from "react-icons/fa";
-import React from "react";
+import React, { useState } from "react";
 import LoginWithButton from "../component/Button/Button";
 import { Link } from "react-router-dom";
 import FormInput from "../component/Form/FormInput";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+
 const LoginPage = () => {
-  const handleChange = () => {};
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleLogin = () => {
+    console.log(formData);
+    console.log("Login");
+    signInWithEmailAndPassword(auth, formData.email, formData.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error);
+        console.log(errorCode);
+      });
+  };
+
   return (
     <>
-      <Container fluid className="p-0 vh-100">
+      <Container fluid className="p-0">
         <Navbar color="black">
           <NavbarBrand href="/">
             <div className="ps-2 pt-4 d-flex align-items-center mb-4 text-light text-light">
@@ -35,7 +63,7 @@ const LoginPage = () => {
         <Container
           color="black"
           className="mt-4"
-          style={{ width: "46rem", height: "18rem", maxWidth: "100%" }}
+          style={{ width: "46rem", maxWidth: "100%" }}
         >
           <Col className="p-0 m-0 d-flex flex-column justify-content-center align-items-center bg-black">
             <Row className="p-0 m-0 mt-5 mb-5">
@@ -51,12 +79,14 @@ const LoginPage = () => {
                   <span>Continue with Google</span>
                 </LoginWithButton>
               </Row>
+
               <Row>
                 <LoginWithButton>
                   <FaFacebook size={24} className="me-5" fill="blue" />
                   <span>Continue with Facebook</span>
                 </LoginWithButton>
               </Row>
+
               <Row>
                 <LoginWithButton>
                   <FaApple size={24} className="me-5" />
@@ -74,19 +104,20 @@ const LoginPage = () => {
                   name="email"
                   type="email"
                   placeholder="Email or username"
-                  value="Hello"
+                  value={formData.email}
                   onChange={handleChange}
                 />
+
                 <FormInput
                   label="Password"
                   name="password"
                   type="password"
                   placeholder="Password"
-                  value=""
+                  value={formData.password}
                   onChange={handleChange}
                 />
+
                 <FormGroup className="mt-3">
-                  <FormFeedback>Please enter your password.</FormFeedback>
                   <div className="form-check form-switch mt-3">
                     <Input
                       // defaultChecked
@@ -101,9 +132,14 @@ const LoginPage = () => {
                     />
                     <Label check>Remember me</Label>
                   </div>
-                  <Button className="rounded-5 mt-5 w-100 mb-3 btn-grow text-black py-2">
+
+                  <Button
+                    onClick={handleLogin}
+                    className="rounded-5 mt-5 w-100 mb-3 btn-grow text-black py-2"
+                  >
                     <span className="fw-semibold">Log In</span>
                   </Button>
+
                   <span className="d-flex justify-content-center">
                     <a href="" className="text-light">
                       Forgot your password?
