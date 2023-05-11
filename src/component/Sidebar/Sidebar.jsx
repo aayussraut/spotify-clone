@@ -6,6 +6,7 @@ import { BsPlusSquareFill } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
 import { BsGlobe } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
+import SidebarCard from "./SidebarComponent";
 
 const Sidebar = () => {
   let location = useLocation();
@@ -22,50 +23,33 @@ const Sidebar = () => {
               </div>
               <div>
                 <Container className="d-flex flex-column">
-                  <Link to="/" className="text-decoration-none text-white">
-                    <div
-                      className={`fw-semibold d-flex align-items-center mb-3 text-secondary sidebar-text ${
-                        location.pathname == "/" && "text-white"
-                      }`}
-                    >
-                      <MdOutlineHome size={24} className="me-3" />
-                      Home
-                    </div>
-                  </Link>
-                  <Link to="/search" className="text-decoration-none">
-                    <div
-                      className={`fw-semibold d-flex align-items-center mb-3 text-secondary sidebar-text ${
-                        location.pathname == "/search" && "text-white"
-                      }`}
-                    >
-                      <MdOutlineSearch size={24} className="me-3" />
-                      Search
-                    </div>
-                  </Link>
-                  <div className="fw-semibold d-flex align-items-center mb-3 text-secondary sidebar-text">
+                  <SidebarCard path="/">
+                    <MdOutlineHome size={24} className="me-3" />
+                    Home
+                  </SidebarCard>
+                  <SidebarCard path="/search">
+                    <MdOutlineSearch size={24} className="me-3" />
+                    Search
+                  </SidebarCard>
+                  <SidebarCard path="/library">
                     <VscLibrary size={24} className="me-3" />
                     Library
-                  </div>
+                  </SidebarCard>
                 </Container>
                 <Container className="d-flex flex-column mt-3 mb-auto">
-                  <div className="fw-semibold d-flex align-items-center mb-3 text-secondary sidebar-text">
+                  <SidebarCard path="/library">
                     <BsPlusSquareFill size={24} className="me-3" />
                     Create Playlist
-                  </div>
-                  <div className="fw-semibold d-flex align-items-center mb-3 text-secondary sidebar-text">
+                  </SidebarCard>
+                  <SidebarCard path="/library">
                     <FcLike size={24} className="me-3" />
                     Liked Songs
-                  </div>
+                  </SidebarCard>
                 </Container>
               </div>
             </div>
 
             <Container className="">
-              {/* <div className="fs-6 text-gray d-flex flex-column align-items-start ">
-                <span className="col">
-                  Legal Privacy Center <br /> Privacy Policy Cookies
-                  <br /> About Ads
-                </span> */}
               <div className="fs-6 text-gray d-flex flex-column ">
                 <div className="text-start mb-3 text-secondary fs-5">
                   <span className="fs-6 fw-light me-2">Legal </span>
@@ -78,10 +62,7 @@ const Sidebar = () => {
                   <br />
                   <span className="fs-6 fw-light me-2">Cookies </span>
                 </div>
-                <Button
-                  className="rounded-5 m-2 border border-white bg-black text-white btn-hover me-2 fw-semibold fs-6"
-                  style={{ width: "10rem" }}
-                >
+                <Button className="rounded-5 m-2 border border-white bg-black text-white btn-hover me-2 fw-semibold fs-6 col-10">
                   <BsGlobe size={24} className="me-1" />
                   English
                 </Button>

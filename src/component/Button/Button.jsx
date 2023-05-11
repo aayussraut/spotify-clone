@@ -1,6 +1,6 @@
 import { Button, Row } from "reactstrap";
 
-const loginWithButton = ({ children }) => {
+const LoginWithButton = ({ children }) => {
   return (
     <>
       <Row className="p-0 m-0 ">
@@ -12,4 +12,12 @@ const loginWithButton = ({ children }) => {
   );
 };
 
-export default loginWithButton;
+const NavButton = ({ children }) => {
+  return (
+    <Button className="fw-semibold rounded-5 m-2 border-0 btn-hover me-2">
+      {children}
+    </Button>
+  );
+};
+
+export { LoginWithButton, NavButton };

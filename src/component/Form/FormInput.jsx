@@ -1,6 +1,14 @@
 import { FormFeedback, FormGroup, FormText, Input, Label } from "reactstrap";
 
-const FormInput = ({ name, type, placeholder, label, value, onChange }) => {
+const FormInput = ({
+  name,
+  type,
+  placeholder,
+  label,
+  value,
+  onChange,
+  formError,
+}) => {
   return (
     <>
       <FormGroup className="mt-3">
@@ -12,14 +20,13 @@ const FormInput = ({ name, type, placeholder, label, value, onChange }) => {
           className=" text-white bg-black border-secondary login-social-button"
           value={value}
           onChange={onChange}
+          invalid={formError ? true : false}
         />
         {name == "username" && (
           <FormText>This appears on your profile.</FormText>
         )}
 
-        {/* <FormFeedback>
-          Please enter your Spotify username or email address.
-        </FormFeedback> */}
+        <FormFeedback>{formError}</FormFeedback>
       </FormGroup>
     </>
   );

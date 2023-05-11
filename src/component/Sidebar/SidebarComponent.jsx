@@ -1,23 +1,17 @@
-import { MdHoMdOutlineHome, MdOutlineSearch } from "react-icons/md";
-import { VscLibrary } from "react-icons/vsc";
+import { Link } from "react-router-dom";
 
-const SidebarCard = () => {
+const SidebarCard = ({ children, path }) => {
   return (
     <>
-      <div>
-        <div className="fw-semibold d-flex align-items-center">
-          {/* { React.createElement()  }/> */}
-          Home
+      <Link to={path} className="text-decoration-none text-white">
+        <div
+          className={`fw-semibold d-flex align-items-center mb-3 text-secondary sidebar-text ${
+            location.pathname == path && "text-white"
+          }`}
+        >
+          {children}
         </div>
-        <div>
-          <MdHome size={20} />
-          Home
-        </div>
-        <div>
-          <MdHome size={20} />
-          Home
-        </div>
-      </div>
+      </Link>
     </>
   );
 };
