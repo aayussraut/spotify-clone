@@ -8,6 +8,9 @@ import LoginPage from "./pages/login_page.jsx";
 import SignUpPage from "./pages/signup-page.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import SearchPage from "./pages/SearchPage.jsx";
+import { RecoilRoot } from "recoil";
+import ProtectedRoute from "./utils/ProtectedRoute.jsx";
+import LoggedRoute from "./utils/LoggedRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,19 +29,57 @@ const router = createBrowserRouter([
         path: "/search/:query",
         element: <SearchPage />,
       },
+      {
+        path: "/create-playlist",
+        element: (
+          <LoggedRoute>
+            <h1>TODO</h1>
+          </LoggedRoute>
+        ),
+      },
+      {
+        path: "/liked-songs",
+        element: (
+          <LoggedRoute>
+            <h1>TODO</h1>
+          </LoggedRoute>
+        ),
+      },
+      {
+        path: "/library",
+        element: (
+          <LoggedRoute>
+            <h1>TODO</h1>
+          </LoggedRoute>
+        ),
+      },
+      {
+        path: "/playlist/:id",
+        element: <SearchPage />,
+      },
     ],
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: (
+      <ProtectedRoute>
+        <LoginPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/signup",
-    element: <SignUpPage />,
+    element: (
+      <ProtectedRoute>
+        <SignUpPage />
+      </ProtectedRoute>
+    ),
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RecoilRoot>
+      <RouterProvider router={router} />
+    </RecoilRoot>
   </React.StrictMode>
 );
