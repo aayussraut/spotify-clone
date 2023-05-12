@@ -1,5 +1,6 @@
 import { Col, Container, Row } from "reactstrap";
 import { HomepageCard } from "../Card/Card";
+import { Link } from "react-router-dom";
 
 const HomeSection = ({ title, data }) => {
   return (
@@ -20,11 +21,17 @@ const HomeSection = ({ title, data }) => {
               className="my-3 gap-0"
               key={item.id}
             >
-              <HomepageCard
-                title={item.name}
-                subtitle={item.artist || item.description}
-                image={item.image_url}
-              />
+              <Link
+                className="text-decoration-none"
+                to={`/playlist/${item.id + "xyseffea235fe1"}`}
+                state={{ data: item, itemId: item.id }}
+              >
+                <HomepageCard
+                  title={item.name}
+                  subtitle={item.artist || item.description}
+                  image={item.image_url}
+                />
+              </Link>
             </Col>
           ))}
         </Row>

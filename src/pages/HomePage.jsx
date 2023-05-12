@@ -8,7 +8,7 @@ const HomePage = () => {
     <>
       <HomeSection title="Albums" data={data.albums} />
       <HomeSection title="Spotify Playlists" data={data.playlists} />
-      <HomeSection title="Focus" data={data.albums.slice(6, 13)} />
+      <HomeSection title="Focus" data={[...data.albums].reverse()} />
     </>
   );
 };

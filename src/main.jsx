@@ -11,6 +11,7 @@ import SearchPage from "./pages/SearchPage.jsx";
 import { RecoilRoot } from "recoil";
 import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 import LoggedRoute from "./utils/LoggedRoute.jsx";
+import Playlist from "./pages/Playlist.jsx";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/playlist/:id",
-        element: <SearchPage />,
+        element: <Playlist />,
       },
     ],
   },

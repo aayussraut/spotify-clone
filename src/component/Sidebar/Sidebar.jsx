@@ -3,10 +3,10 @@ import { BsSpotify } from "react-icons/bs";
 import { MdOutlineHome, MdOutlineSearch } from "react-icons/md";
 import { VscLibrary } from "react-icons/vsc";
 import { BsPlusSquareFill } from "react-icons/bs";
-import { FcLike } from "react-icons/fc";
 import { BsGlobe } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import SidebarCard from "./SidebarComponent";
+import { BiHeartSquare } from "react-icons/bi";
 
 const Sidebar = () => {
   let location = useLocation();
@@ -42,7 +42,7 @@ const Sidebar = () => {
                     Create Playlist
                   </SidebarCard>
                   <SidebarCard path="/library">
-                    <FcLike size={24} className="me-3" />
+                    <BiHeartSquare size={24} className="me-3" />
                     Liked Songs
                   </SidebarCard>
                 </Container>
