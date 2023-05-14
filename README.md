@@ -9,6 +9,7 @@
 - Installation
 - Usage
 - Contributing
+- Screenshots
 
 ## Features
 
@@ -92,3 +93,19 @@ $ git push origin your-branch-name
 ```
 
 - Create a pull request on the main repository and wait for it to be reviewed and merged.
+
+## Screenshots
+
+- Home Page
+  <img src="./images/default-home.png" height={400} width={400}>
+
+  - Loggedin Home Page
+    <img src="./images/loggedin-home-page.png" height={400} width={400}>
+  - Login Page
+    <img src="./images/login-page.png" height={400} width={400}>
+  - Signup Page
+    <img src="./images/signup-page.png" height={400} width={400}>
+  - Playlist Page
+    <img src="./images/playlist.png" height={400} width={400}>
+  - Search Page
+    <img src="./images/search-page.png" height={400} width={400}>
