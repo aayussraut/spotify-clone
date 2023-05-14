@@ -12,11 +12,13 @@ import { RecoilRoot } from "recoil";
 import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 import LoggedRoute from "./utils/LoggedRoute.jsx";
 import Playlist from "./pages/Playlist.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",

@@ -12,6 +12,7 @@ export default function Footer() {
               <span className=" mb-2 text-secondary">Jobs</span>
               <span className=" mb-2 text-secondary">For the Record</span>
             </Col>
+
             <Col md={2} className="d-flex flex-column">
               <span className="fw-bold mb-2">Communities</span>
               <span className=" mb-2 text-secondary">For Artists</span>
@@ -21,6 +22,7 @@ export default function Footer() {
               <span className=" mb-2 text-secondary">Vendors</span>
               <span className=" mb-2 text-secondary">Spotify for Work</span>
             </Col>
+
             <Col md={2} className="d-flex flex-column">
               <span className="fw-bold mb-2">Useful links</span>
               <span className=" mb-2 text-secondary">Support</span>
@@ -39,6 +41,7 @@ export default function Footer() {
                 >
                   <BsInstagram />
                 </Button>
+
                 <Button
                   className="rounded-circle me-3 border-0 d-flex justify-content-center align-items-center social-media-button"
                   style={{
@@ -49,6 +52,7 @@ export default function Footer() {
                 >
                   <BsTwitter />
                 </Button>
+
                 <Button
                   className="rounded-circle me-3 border-0 d-flex justify-content-center align-items-center social-media-button"
                   style={{
@@ -63,7 +67,9 @@ export default function Footer() {
             </Col>
           </div>
         </Row>
+
         <hr />
+
         <Row className="mb-5 mt-4 text-secondary">
           <span>&copy; 2023 Spotify AB</span>
         </Row>

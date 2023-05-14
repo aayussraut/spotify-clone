@@ -38,6 +38,7 @@ const PlaylistCard = ({ item, roundedImage }) => {
           className={`card-img-top ${roundedImage}`}
           style={{ height: "auto", width: "100%" }}
         />
+
         <Button
           className="rounded-circle border-0 position-absolute bottom-0 end-0 playButton"
           style={{
@@ -52,6 +53,7 @@ const PlaylistCard = ({ item, roundedImage }) => {
           <BsFillPlayFill size={30} color="black" />
         </Button>
       </div>
+
       <CardBody className="p-0 pt-3">
         <CardTitle tag="h6" className="fw-bold text-white line-clamp">
           {item.name}
@@ -93,11 +95,13 @@ const HomepageLongCard = ({ item }) => {
             style={{ height: "5rem", width: "5rem" }}
           />
         </Col>
+
         <Col className="col-7  position-relative   ">
           <CardTitle tag="h6" className="fw-bold text-white line-clamp">
             {item.name}
           </CardTitle>
         </Col>
+
         <Col className=" d-flex col-2 m-0 p-0  ">
           <Button
             className="d-flex align-items-center rounded-circle playButton2"
@@ -143,9 +147,11 @@ const SearchCard = ({ image_url, name }) => {
                 />
               </div>
             </Row>
+
             <Row className="m-0  row-4 ">
               <h2 className="my-3 fw-bold p-0">{name}</h2>
             </Row>
+
             <Row className="m-0 row-4 m-">
               <span className="border-0 fw-semibold bg-black rounded-5 w-auto">
                 Artist

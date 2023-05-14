@@ -98,7 +98,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <Container fluid className="p-0">
+      <Container fluid className="p-0 vh-100">
         <Navbar color="black">
           <NavbarBrand href="/">
             <div className="ps-2 pt-4 d-flex align-items-center mb-4 text-light text-light">
@@ -110,7 +110,7 @@ const LoginPage = () => {
 
         <Container
           color="black"
-          className="mt-4"
+          className="mt-4 "
           style={{ width: "46rem", maxWidth: "100%" }}
         >
           <Col className="p-0 m-0 d-flex flex-column justify-content-center align-items-center bg-black">
