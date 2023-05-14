@@ -22,13 +22,13 @@ import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { userAtom, searchAtom } from "../../recoil";
 import { useRecoilValue, useRecoilState } from "recoil";
-
+import { removeSession } from "../../utils/auth";
+import { auth } from "../../firebase/firebase";
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
-  const user = useRecoilValue(userAtom);
-  console.log(user);
+  const [user, setUser] = useRecoilState(userAtom);
   const [search, setSearch] = useRecoilState(searchAtom);
   const navigate = useNavigate();
   const match = useMatch("/search/*");
@@ -37,9 +37,14 @@ const Header = () => {
     navigate(`/search/${e.target.value}`, { replace: true });
   };
 
-  useEffect(() => {
-    if (search === "") setSearch("");
-  }, []);
+  const handleLogout = () => {
+    auth.signOut();
+    setUser({
+      user: null,
+      isLoading: false,
+    });
+    removeSession();
+  };
 
   return (
     <>
@@ -98,7 +103,10 @@ const Header = () => {
                       alt="profile"
                     />
                   </DropdownToggle>
-                  <DropdownMenu className="text-white custom-dropdown-menu">
+                  <DropdownMenu
+                    className="text-white custom-dropdown-menu"
+                    dark={true}
+                  >
                     <DropdownItem>Account</DropdownItem>
                     <DropdownItem>Profile</DropdownItem>
                     <DropdownItem>Upgrade to Premium</DropdownItem>
@@ -106,7 +114,7 @@ const Header = () => {
                     <DropdownItem>Download</DropdownItem>
                     <DropdownItem>Settings</DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem>Log out</DropdownItem>
+                    <DropdownItem onClick={handleLogout}>Log out</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </NavbarText>

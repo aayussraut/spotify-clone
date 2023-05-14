@@ -90,7 +90,6 @@ const Playlist = () => {
 
             <tbody className="fs-6">
               {data.songs.map((id, index) => {
-                console.log(id);
                 const { name, album, duration, image_url, artist } = songs[id];
                 return (
                   <tr

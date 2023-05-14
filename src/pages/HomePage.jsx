@@ -6,11 +6,29 @@ import { userAtom } from "../recoil";
 import { useRecoilValue } from "recoil";
 import PlayListSection from "../component/Section/PlaylistSection";
 const HomePage = () => {
+  function getTimeGreeting() {
+    var now = new Date();
+    var hour = now.getHours();
+    var greeting;
+
+    if (hour < 12) {
+      greeting = "Good morning!";
+    } else if (hour < 18) {
+      greeting = "Good afternoon!";
+    } else {
+      greeting = "Good evening!";
+    }
+
+    return greeting;
+  }
   const user = useRecoilValue(userAtom);
   return (
     <>
       {user.user && (
         <Container fluid className="px-4 mt-4">
+          <div className="d-flex justify-content-between ">
+            <h4 className="fw-bold">{getTimeGreeting()}</h4>
+          </div>
           <Row className=" no-gutters m-0 p-0  overflow-hidden ">
             {data.playlists.slice(0, 6).map((item, index) => (
               <>
