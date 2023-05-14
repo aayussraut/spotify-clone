@@ -17,6 +17,11 @@
 body {
   color: rgba(255, 255, 255, 0.87) !important;
   background-color: #121212 !important;
+  background: linear-gradient(
+    0deg,
+    rgba(18, 18, 18, 1) 85%,
+    rgba(77, 77, 78, 1) 100%
+  );
   margin: 0;
 }
 .sidebar-text:hover {
@@ -79,6 +84,61 @@ body {
 .scale:hover {
   transform: scale(1.05);
 }
+
+.playButton2 {
+  opacity: 0;
+  transition: all 0.2s ease-in-out !important;
+}
+.longCard:hover .playButton2 {
+  opacity: 1;
+}
+.music-bar-icons {
+  color: #b3b3b3 !important;
+}
+
+.music-bar-icons:hover {
+  color: white !important;
+}
+tr:hover {
+  background-color: #2a2d2e !important;
+}
+
+.gradient-icon {
+  background-color: #5a30f0;
+  background-image: linear-gradient(135deg, #5a30f0 34%, #afc9de 100%);
+}
+
+.hide-icon {
+  opacity: 0;
+}
+
+tr:hover .hide-icon {
+  opacity: 1;
+}
+
+.gray-color {
+  color: #acacad !important;
+}
+tr:hover .gray-color {
+  color: white !important;
+}
+
+.gray-color-without-hover {
+  color: #acacad !important;
+}
+
+.song-hover:hover {
+  background-color: #2a2d2e !important;
+}
+
+.song-hover:hover .hide-icon {
+  opacity: 1;
+}
+
+.hover-button:hover {
+  transform: scale(1.05);
+}
+
 /* @media (min-width: 1200px) {
   .col-xxl-3 {
     flex: 0 0 auto;
