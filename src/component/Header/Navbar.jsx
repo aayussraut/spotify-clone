@@ -1,6 +1,10 @@
 import {
   Button,
   Container,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
   Input,
   InputGroup,
   InputGroupText,
@@ -13,42 +17,44 @@ import {
   MdArrowBackIos,
   MdOutlineDownloadForOffline,
 } from "react-icons/md";
-import { useLocation, useMatch, useNavigate } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { userAtom } from "../../recoil";
-import { useRecoilValue } from "recoil";
+import { userAtom, searchAtom } from "../../recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 
 const Header = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
   const user = useRecoilValue(userAtom);
   console.log(user);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useRecoilState(searchAtom);
   const navigate = useNavigate();
   const match = useMatch("/search/*");
   const handleSearch = (e) => {
     setSearch(e.target.value);
-    navigate(`/search/${e.target.value}`);
+    navigate(`/search/${e.target.value}`, { replace: true });
   };
-  // useEffect(() => {
-  //   setSearch("");
-  // }, []);
+
+  useEffect(() => {
+    if (search === "") setSearch("");
+  }, []);
 
   return (
     <>
-      <Navbar
-        sticky="top"
-        style={{ background: "#070707" }}
-        className="bg-opacity-50 "
-      >
+      <Navbar sticky="top" style={{ background: "#070707", opacity: "0.8" }}>
         <Container fluid className="p-0 d-flex align-items-center">
           <Nav className="me-2">
             <Button
+              onClick={() => navigate(-1)}
               className="rounded-circle d-flex justify-content-center align-items-center bg-black me-2 border-0"
               style={{ width: "40px", height: "40px" }}
             >
               <MdArrowBackIos size={40} />
             </Button>
             <Button
+              onClick={() => navigate(+1)}
               className="rounded-circle d-flex justify-content-center bg-black border-0 align-items-center"
               style={{ width: "40px", height: "40px" }}
             >
@@ -74,21 +80,35 @@ const Header = () => {
           )}
           {user.user && (
             <Nav className="ms-auto">
-              <Button className=" fw-semibold rounded-5 m-2 text-black bg-white border-0 btn-hover me-2">
+              <Button className="hover-button fw-semibold rounded-5 m-2 text-black bg-white border-0 btn-hover me-2">
                 Upgrade
               </Button>
-              <Button className="fw-semibold rounded-5 m-2 bg-black  border-0 btn-hover me-2">
+              <Button className="hover-button fw-semibold rounded-5 m-2 bg-black  border-0 btn-hover me-2">
                 <MdOutlineDownloadForOffline size={20} className="me-1 " />
                 Install App
               </Button>
               <NavbarText>
-                <img
-                  width={35}
-                  height={35}
-                  className="rounded-circle "
-                  src="https://picsum.photos/200"
-                  alt="profile"
-                />
+                <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                  <DropdownToggle className="bg-transparent border-0">
+                    <img
+                      width={35}
+                      height={35}
+                      className="rounded-circle "
+                      src="https://picsum.photos/200"
+                      alt="profile"
+                    />
+                  </DropdownToggle>
+                  <DropdownMenu className="text-white custom-dropdown-menu">
+                    <DropdownItem>Account</DropdownItem>
+                    <DropdownItem>Profile</DropdownItem>
+                    <DropdownItem>Upgrade to Premium</DropdownItem>
+                    <DropdownItem>Support</DropdownItem>
+                    <DropdownItem>Download</DropdownItem>
+                    <DropdownItem>Settings</DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>Log out</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
               </NavbarText>
             </Nav>
           )}
@@ -96,13 +116,13 @@ const Header = () => {
             <Nav className="ms-auto">
               <Button
                 onClick={() => navigate("/signup")}
-                className="fw-semibold rounded-5 m-2 bg-black  border-0 btn-hover me-2 scale"
+                className="hover-button fw-semibold rounded-5 m-2 bg-black  border-0 btn-hover me-2 scale"
               >
                 Sign up
               </Button>
               <Button
                 onClick={() => navigate("/login")}
-                className=" fw-semibold rounded-5 m-2 text-black bg-white border-0 btn-hover me-2 p-2 px-4 scale"
+                className="hover-button fw-semibold rounded-5 m-2 text-black bg-white border-0 btn-hover me-2 p-2 px-4 scale"
               >
                 Log in
               </Button>
