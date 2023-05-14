@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 const SidebarCard = ({ children, path }) => {
+  const location = useLocation();
   return (
     <>
       <Link to={path} className="text-decoration-none text-white">

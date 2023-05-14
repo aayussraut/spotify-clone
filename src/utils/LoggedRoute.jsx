@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import { userAtom } from "../recoil";
 import { useRecoilValue } from "recoil";
 const LoggedRoute = ({ children }) => {
