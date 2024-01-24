@@ -45,7 +45,6 @@ $ cd spotify-clone
 ```
   VITE_API_KEY=your-firebase-api-key
   VITE_AUTH_DOMAIN=your-firebase-auth-domain
-  VITE_DATABASE_URL=your-firebase-database-url
   VITE_PROJECT_ID=your-firebase-project-id
   VITE_STORAGE_BUCKET=your-firebase-storage-bucket
   VITE_MESSAGING_SENDER_ID=your-firebase-messaging-sender-id
